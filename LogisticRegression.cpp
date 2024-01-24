@@ -7,12 +7,12 @@ LogisticRegression::LogisticRegression()
 {
 	m_loss = new BinaryCrossEntropy();
 }
-Vector1D LogisticRegression::Func(Vector2D& x, Vector1D& w, double b)
+Vector LogisticRegression::Func(Matrix& x, Vector& w, double b)
 {
 	int m = x.size();
 	int n = x[0].size();
 
-	Vector1D ret(m);
+	Vector ret(m);
 	for (int i = 0; i < m; ++i)
 	{
 		double z = b;
@@ -25,9 +25,9 @@ Vector1D LogisticRegression::Func(Vector2D& x, Vector1D& w, double b)
 	}
 	return ret;
 }
-double LogisticRegression::Cost(Vector2D& x, Vector1D& y, Vector1D& w, double b) {
+double LogisticRegression::Cost(Matrix& x, Vector& y, Vector& w, double b) {
 
-	Vector1D yPred = Func(x, w, b);
+	Vector yPred = Func(x, w, b);
 
 	return m_loss->Calculate(yPred, y);
 }

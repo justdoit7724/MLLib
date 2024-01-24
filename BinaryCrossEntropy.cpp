@@ -3,7 +3,7 @@
 
 using namespace ML;
 
-double BinaryCrossEntropy::Calculate(Vector1D& yp, Vector1D& yt, bool isLogit)
+double BinaryCrossEntropy::Calculate(Vector& yp, Vector& yt, bool isLogit)
 {
 	auto& my = yp;
 
@@ -22,7 +22,7 @@ double BinaryCrossEntropy::Calculate(Vector1D& yp, Vector1D& yt, bool isLogit)
 	return ret/m;
 }
 
-void BinaryCrossEntropy::Gradient(Vector2D& x, Vector1D& yp, Vector1D& yt,Vector1D& gdw, double& gdb)
+void BinaryCrossEntropy::Gradient(Matrix& x, Vector& yp, Vector& yt,Vector& gdw, double& gdb)
 {
 	gdw.clear();
 	gdb = 0;

@@ -7,13 +7,12 @@ LinearRegression::LinearRegression()
 {
 	m_loss = new MeanSqauredError();
 }
-
-Vector1D LinearRegression::Func(Vector2D&  x, Vector1D& w, double b)
+Vector LinearRegression::Func(Matrix&  x, Vector& w, double b)
 {
 	int m = x.size();
 	int n = x[0].size();
 
-	Vector1D ret(m);
+	Vector ret(m);
 	for (int i = 0; i < m; ++i)
 	{
 		for (int j = 0; j < n; ++j)
@@ -26,9 +25,9 @@ Vector1D LinearRegression::Func(Vector2D&  x, Vector1D& w, double b)
 	return ret;
 }
 
-double LinearRegression::Cost(Vector2D&  x, Vector1D& y, Vector1D& w, double b)
+double LinearRegression::Cost(Matrix&  x, Vector& y, Vector& w, double b)
 {
-	Vector1D yPred = Func(x, w, b);
+	Vector yPred = Func(x, w, b);
 
 	return m_loss->Calculate(yPred, y, true);
 }

@@ -1,5 +1,6 @@
 #pragma once
 #include "Regression.h"
+
 namespace ML
 {
     class LogisticRegression :
@@ -9,7 +10,7 @@ namespace ML
         LogisticRegression();
 
 
-        Vector1D Func(Vector2D& x, Vector1D& w, double b) override;
-        double Cost(Vector2D& x, Vector1D& y, Vector1D& w, double b) override;
+        Vector Func(Matrix& x, Vector& w, double b) override;
+        double Cost(Matrix& x, Vector& y, Vector& w, double b) override;
     };
 }

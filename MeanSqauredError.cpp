@@ -2,7 +2,7 @@
 #include "MeanSqauredError.h"
 
 using namespace ML;
-double MeanSqauredError::Calculate(Vector1D& yp, Vector1D& yt, bool isLogit)
+double MeanSqauredError::Calculate(Vector& yp, Vector& yt, bool isLogit)
 {
     int m = yp.size();
 
@@ -15,7 +15,7 @@ double MeanSqauredError::Calculate(Vector1D& yp, Vector1D& yt, bool isLogit)
 }
 
 
-void MeanSqauredError::Gradient(Vector2D& x, Vector1D& yp, Vector1D& yt, Vector1D& gdw, double& gdb)
+void MeanSqauredError::Gradient(Matrix& x, Vector& yp, Vector& yt, Vector& gdw, double& gdb)
 {
     gdw.clear();
     gdb = 0;

@@ -7,8 +7,8 @@ namespace ML {
     public:
         LinearRegression();
 
-        Vector1D Func(Vector2D&  x, Vector1D& w, double b) override;
-        double Cost(Vector2D&  x, Vector1D& y, Vector1D& w, double b) override;
+        Vector Func(Matrix&  x, Vector& w, double b) override;
+        double Cost(Matrix&  x, Vector& y, Vector& w, double b) override;
     };
 }
 

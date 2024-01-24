@@ -146,7 +146,7 @@
     <ClInclude Include="LinearRegression.h" />
     <ClInclude Include="LogisticRegression.h" />
     <ClInclude Include="Loss.h" />
-    <ClInclude Include="Matrix.h" />
+    <ClInclude Include="_Math.h" />
     <ClInclude Include="MeanSqauredError.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Regression.h" />
@@ -158,7 +158,7 @@
     <ClCompile Include="LinearRegression.cpp" />
     <ClCompile Include="LogisticRegression.cpp" />
     <ClCompile Include="Loss.cpp" />
-    <ClCompile Include="Matrix.cpp" />
+    <ClCompile Include="_Math.cpp" />
     <ClCompile Include="MeanSqauredError.cpp" />
     <ClCompile Include="MLLib.cpp" />
     <ClCompile Include="pch.cpp">

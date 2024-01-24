@@ -1,10 +1,12 @@
 #pragma once
+#include "_Math.h"
+
 namespace ML {
 	class Loss
 	{
 	public:
 
-		virtual double Calculate(Vector1D& yp, Vector1D& yt, bool isLogit = false) = 0;
-		virtual void Gradient(Vector2D&  x, Vector1D& yp, Vector1D& yt, Vector1D& gdw, double& gdb) = 0;
+		virtual double Calculate(Vector& yp, Vector& yt, bool isLogit = false) = 0;
+		virtual void Gradient(Matrix&  x, Vector& yp, Vector& yt, Vector& gdw, double& gdb) = 0;
 	};
 }
