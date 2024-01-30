@@ -1,11 +1,12 @@
 #include "pch.h"
 #include "LogisticRegression.h"
-#include "BinaryCrossEntropy.h"
+#include "FactoryLoss.h"
+
 
 using namespace ML;
 LogisticRegression::LogisticRegression()
 {
-	m_loss = new BinaryCrossEntropy();
+	FactoryLoss::Create(LossKind::BinaryCrossEntropy, &m_loss);
 }
 Vector LogisticRegression::Func(Matrix& x, Vector& w, double b)
 {

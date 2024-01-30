@@ -34,6 +34,8 @@ namespace ML {
 
 	double Sigmoid(double v);
 	Vector Sigmoid(const Vector& v);
+
+	Vector Exp(Vector v);
 	
 
 }

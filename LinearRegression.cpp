@@ -1,11 +1,11 @@
 #include "pch.h"
 #include "LinearRegression.h"
-#include "MeanSqauredError.h"
+#include "FactoryLoss.h"
 
 using namespace ML;
 LinearRegression::LinearRegression()
 {
-	m_loss = new MeanSqauredError();
+	FactoryLoss::Create(LossKind::MeanSqure, &m_loss);
 }
 Vector LinearRegression::Func(Matrix&  x, Vector& w, double b)
 {

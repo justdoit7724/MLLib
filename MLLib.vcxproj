@@ -139,13 +139,24 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Activation.h" />
     <ClInclude Include="BinaryCrossEntropy.h" />
     <ClInclude Include="CategoricalCrossEntropy.h" />
+    <ClInclude Include="FactoryAct.h" />
+    <ClInclude Include="FactoryLoss.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Info.h" />
+    <ClInclude Include="Layer.h" />
+    <ClInclude Include="LinearAct.h" />
     <ClInclude Include="LinearRegression.h" />
+    <ClInclude Include="LogisticAct.h" />
     <ClInclude Include="LogisticRegression.h" />
     <ClInclude Include="Loss.h" />
+    <ClInclude Include="NeuralNetwork.h" />
+    <ClInclude Include="Neuron.h" />
+    <ClInclude Include="Normalizer.h" />
+    <ClInclude Include="ReluAct.h" />
+    <ClInclude Include="SoftmaxAct.h" />
     <ClInclude Include="_Math.h" />
     <ClInclude Include="MeanSqauredError.h" />
     <ClInclude Include="pch.h" />
@@ -153,11 +164,22 @@
     <ClInclude Include="Timer.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Activation.cpp" />
     <ClCompile Include="BinaryCrossEntropy.cpp" />
     <ClCompile Include="CategoricalCrossEntropy.cpp" />
+    <ClCompile Include="FactoryAct.cpp" />
+    <ClCompile Include="FactoryLoss.cpp" />
+    <ClCompile Include="Layer.cpp" />
+    <ClCompile Include="LinearAct.cpp" />
     <ClCompile Include="LinearRegression.cpp" />
+    <ClCompile Include="LogisticAct.cpp" />
     <ClCompile Include="LogisticRegression.cpp" />
     <ClCompile Include="Loss.cpp" />
+    <ClCompile Include="NeuralNetwork.cpp" />
+    <ClCompile Include="Neuron.cpp" />
+    <ClCompile Include="Normalizer.cpp" />
+    <ClCompile Include="ReluAct.cpp" />
+    <ClCompile Include="SoftmaxAct.cpp" />
     <ClCompile Include="_Math.cpp" />
     <ClCompile Include="MeanSqauredError.cpp" />
     <ClCompile Include="MLLib.cpp" />

@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "Regression.h"
 #include "Loss.h"
+#include "Normalizer.h"
 
 using namespace ML;
 
@@ -17,7 +18,12 @@ bool Regression::Compile(Matrix&  x, Vector& y, bool isNormalize)
 	m_mx.resize(x.size(), Vector(m_nVar, 0));
 
 	m_isNormalized = isNormalize;
-	m_mx = m_isNormalized? ZNormalize(x,true):x;
+	if (m_isNormalized)
+	{
+		Normalizer::ZNormalize(x, &m_mx, &m_mu, &m_sig);
+	}
+	else
+		m_mx = x;
 
 	m_y = y;
 
@@ -62,41 +68,17 @@ void Regression::GetWeights(Vector& w, double& b)
 	b = m_b;
 }
 
-
-Matrix Regression::ZNormalize(Matrix&  x, bool reCalc)
+Matrix ML::Regression::ZNormalize(const Matrix& x)
 {
 	int n = x[0].size();
 	int m = x.size();
-
-	if (reCalc)
-	{
-		m_mu.resize(n);
-		m_sig.resize(n);
-		for (int i = 0; i < n; ++i)
-		{
-			for (int j = 0; j < m; ++j)
-			{
-				m_mu[i] += x[j][i];
-			}
-			m_mu[i] /= m;
-		}
-
-		for (int i = 0; i < n; ++i)
-		{
-			for (int j = 0; j < m; ++j)
-			{
-				m_sig[i] += pow(x[j][i] - m_mu[i], 2);
-			}
-			m_sig[i] = sqrt(m_sig[i]);
-		}
-	}
 
 	Matrix ret;
 	ret.resize(m, Vector(n, 0));
 
 	for (int i = 0; i < m; ++i)
 	{
-		for(int j=0; j<n; ++j)
+		for (int j = 0; j < n; ++j)
 		{
 			ret[i][j] = (x[i][j] - m_mu[j]) / m_sig[j];
 		}
@@ -104,6 +86,8 @@ Matrix Regression::ZNormalize(Matrix&  x, bool reCalc)
 
 	return ret;
 }
+
+
 
 void Regression::Gradient(Matrix& x, Vector& y, Vector& w, double b, Vector& gdw, double& gdb)
 {

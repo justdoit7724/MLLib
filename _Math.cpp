@@ -1,6 +1,8 @@
 #include "pch.h"
 #include "_Math.h"
 
+using namespace ML;
+
 void ML::AddTo(Vector& a, const Vector& b)
 {
 	assert(a.size() == b.size());
@@ -227,6 +229,15 @@ ML::Vector ML::Sigmoid(const Vector& v)
 	{
 		output[i] = Sigmoid(v[i]);
 	}
+
+	return output;
+}
+
+Vector ML::Exp(Vector v)
+{
+	Vector output(v.size());
+	for (int i = 0; i < v.size(); ++i)
+		output[i] = exp(v[i]);
 
 	return output;
 }

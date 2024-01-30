@@ -1,8 +1,8 @@
 #pragma once
 #include "_Math.h"
+#include "Loss.h"
 
 namespace ML {
-	class Loss;
 
 	class Regression
 	{
@@ -13,7 +13,7 @@ namespace ML {
 		virtual Vector Predict(Matrix&  x);
 		void SetWeights(Vector& w, double b);
 		void GetWeights(Vector& w, double& b);
-		Matrix ZNormalize(Matrix&  x, bool reCalc = false);
+		Matrix ZNormalize(const Matrix& x);
 
 		virtual Vector Func(Matrix&  x, Vector& w, double b) = 0;
 		virtual double Cost(Matrix&  x, Vector& y, Vector& w, double b) = 0;

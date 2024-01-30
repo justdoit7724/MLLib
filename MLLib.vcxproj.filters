@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Activation">
+      <UniqueIdentifier>{8732da6d-3838-4c4c-b8a2-fa43174eeb11}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Loss">
+      <UniqueIdentifier>{08d159c8-4bac-446b-86f5-360ee2cffb1e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -33,22 +39,55 @@
     <ClInclude Include="Info.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Loss.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="MeanSqauredError.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="BinaryCrossEntropy.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="CategoricalCrossEntropy.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="Timer.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="_Math.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="NeuralNetwork.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Activation.h">
+      <Filter>Activation</Filter>
+    </ClInclude>
+    <ClInclude Include="LinearAct.h">
+      <Filter>Activation</Filter>
+    </ClInclude>
+    <ClInclude Include="LogisticAct.h">
+      <Filter>Activation</Filter>
+    </ClInclude>
+    <ClInclude Include="SoftmaxAct.h">
+      <Filter>Activation</Filter>
+    </ClInclude>
+    <ClInclude Include="ReluAct.h">
+      <Filter>Activation</Filter>
+    </ClInclude>
+    <ClInclude Include="Neuron.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Layer.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="FactoryAct.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Normalizer.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="CategoricalCrossEntropy.h">
+      <Filter>Loss</Filter>
+    </ClInclude>
+    <ClInclude Include="BinaryCrossEntropy.h">
+      <Filter>Loss</Filter>
+    </ClInclude>
+    <ClInclude Include="Loss.h">
+      <Filter>Loss</Filter>
+    </ClInclude>
+    <ClInclude Include="MeanSqauredError.h">
+      <Filter>Loss</Filter>
+    </ClInclude>
+    <ClInclude Include="FactoryLoss.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
@@ -68,22 +107,55 @@
     <ClCompile Include="LogisticRegression.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Loss.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="MeanSqauredError.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="BinaryCrossEntropy.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="CategoricalCrossEntropy.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="Timer.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="_Math.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="NeuralNetwork.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Activation.cpp">
+      <Filter>Activation</Filter>
+    </ClCompile>
+    <ClCompile Include="LinearAct.cpp">
+      <Filter>Activation</Filter>
+    </ClCompile>
+    <ClCompile Include="ReluAct.cpp">
+      <Filter>Activation</Filter>
+    </ClCompile>
+    <ClCompile Include="SoftmaxAct.cpp">
+      <Filter>Activation</Filter>
+    </ClCompile>
+    <ClCompile Include="LogisticAct.cpp">
+      <Filter>Activation</Filter>
+    </ClCompile>
+    <ClCompile Include="Neuron.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Layer.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="FactoryAct.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Normalizer.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="BinaryCrossEntropy.cpp">
+      <Filter>Loss</Filter>
+    </ClCompile>
+    <ClCompile Include="CategoricalCrossEntropy.cpp">
+      <Filter>Loss</Filter>
+    </ClCompile>
+    <ClCompile Include="MeanSqauredError.cpp">
+      <Filter>Loss</Filter>
+    </ClCompile>
+    <ClCompile Include="Loss.cpp">
+      <Filter>Loss</Filter>
+    </ClCompile>
+    <ClCompile Include="FactoryLoss.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
