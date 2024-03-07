@@ -1,5 +1,5 @@
 #pragma once
-#include "_Math.h"
+#include "MathHelp.h"
 
 namespace ML
 {
@@ -7,7 +7,7 @@ namespace ML
 	{
 	public:
 		virtual Vector Calc(Vector z) = 0;
-		virtual Matrix Diff(Vector z, Matrix dz) = 0;
+		virtual Matrix Diff(Vector z) = 0;
 	};
 }
 

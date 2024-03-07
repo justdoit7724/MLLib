@@ -16,20 +16,16 @@ Vector ReluAct::Calc(Vector z)
 	return output;
 }
 
-Matrix ReluAct::Diff(Vector z, Matrix dz)
+Matrix ReluAct::Diff(Vector z)
 {
-	int na = dz.size();
-	int nz = dz[0].size();
+	int n = z.size();
 
-	Matrix output(na, Vector(nz));
+	Matrix output(n, Vector(n,0));
 
-	for (int y = 0; y < na; ++y)
+	for (int i = 0; i < n; ++i)
 	{
-		for (int x = 0; x < na; ++x)
-		{
-			output[y][x] = dz[y][x] < 0? 0 : dz[y][x];
-		}
+		output[i][i] = z[i] < 0 ? 0 : 1;
 	}
 
-	return Matrix();
+	return output;
 }

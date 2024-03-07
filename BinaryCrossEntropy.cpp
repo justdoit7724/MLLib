@@ -3,7 +3,7 @@
 
 using namespace ML;
 
-double BinaryCrossEntropy::Calculate(Vector& yp, Vector& yt, bool isLogit)
+double BinaryCrossEntropy::Calculate(Vector yp, Vector yt, bool isLogit)
 {
 	auto& my = yp;
 
@@ -12,36 +12,14 @@ double BinaryCrossEntropy::Calculate(Vector& yp, Vector& yt, bool isLogit)
 		my = Sigmoid(yp);
 	}
 
-	double ret = 0;
-	int m = yp.size();
-	for (int i = 0; i < m; ++i)
-	{
-		ret += -yt[i] * log(my[i]) - (1 - yt[i]) * log(1 - my[i]);
-	}
-
-	return ret/m;
+	return -yt[0] * log(my[0]) - (1 - yt[0]) * log(1 - my[0]);
 }
 
-void BinaryCrossEntropy::Gradient(Matrix& x, Vector& yp, Vector& yt,Vector& gdw, double& gdb)
+Vector BinaryCrossEntropy::Gradient(Vector yp, Vector yt)
 {
-	gdw.clear();
-	gdb = 0;
+	Vector gd(1, 0);
+	
+	gd[0] += yp[0] - yt[0];
 
-	int m = yp.size();
-	int n = x[0].size();
-
-	gdw.resize(n);
-	for (int i = 0; i < n; ++i)
-	{
-		for (int j = 0; j < m; ++j)
-		{
-			gdw[i] += (yp[j] - yt[j]) * x[j][i];
-		}
-		gdw[i] /= m;
-	}
-	for (int i = 0; i < m; ++i)
-	{
-		gdb += yp[i] - yt[i];
-	}
-	gdb /= m;
+	return gd;
 }

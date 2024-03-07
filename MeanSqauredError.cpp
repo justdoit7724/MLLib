@@ -2,40 +2,27 @@
 #include "MeanSqauredError.h"
 
 using namespace ML;
-double MeanSqauredError::Calculate(Vector& yp, Vector& yt, bool isLogit)
+double MeanSqauredError::Calculate(Vector yp, Vector yt, bool isLogit)
 {
-    int m = yp.size();
+    int n = yp.size();
 
     double ret = 0;
-    for (int i = 0; i < m; ++i)
+    for (int i = 0; i < yp.size(); ++i)
     {
-        ret += pow(yt[i] - yp[i], 2);
+        ret += pow(yt[i] - yp[i], 2)/2.0;
     }
-    return ret/(m*2);
+    return ret;
 }
 
 
-void MeanSqauredError::Gradient(Matrix& x, Vector& yp, Vector& yt, Vector& gdw, double& gdb)
+Vector MeanSqauredError::Gradient(Vector yp, Vector yt)
 {
-    gdw.clear();
-    gdb = 0;
-
-    int m = yp.size();
-    int n = x[0].size();
-
-    gdw.resize(m);
-    for (int i = 0; i < n; ++i)
-    {
-        for (int j = 0; j < m; ++j)
-        {
-            gdw[i] += (yp[j] - yt[j])*x[j][i];
-        }
-        gdw[i] /= m;
-    }
+    Vector gd;
     
-    for (int i = 0; i < m; ++i)
+    for (int i = 0; i < yp.size(); ++i)
     {
-        gdb += yp[i] - yt[i];
+        gd.push_back(yp[i] - yt[i]);
     }
-    gdb /= m;
+
+    return gd;
 }

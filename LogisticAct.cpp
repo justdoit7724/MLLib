@@ -1,6 +1,5 @@
 #include "pch.h"
 #include "LogisticAct.h"
-#include "_Math.h"
 
 using namespace ML;
 
@@ -9,20 +8,14 @@ Vector LogisticAct::Calc(Vector z)
 	return Sigmoid(z);
 }
 
-Matrix LogisticAct::Diff(Vector z, Matrix dz)
+Matrix LogisticAct::Diff(Vector z)
 {
-	int na = dz.size();
-	int nz = dz[0].size();
+	int n = z.size();
+	Matrix output(n, Vector(n, 0));
 
-	Matrix output(na, Vector(nz, 0));
-
-	for (int x = 0; x < nz; ++x)
+	for (int i = 0; i < n; ++i)
 	{
-		double db = exp(-z[x]) / pow(1 + exp(-z[x]), 2);
-		for (int y = 0; y < na; ++y)
-		{
-			output[y][x] = db * dz[y][x];
-		}
+		output[i][i] = exp(-z[i]) / pow(1 + exp(-z[i]), 2);
 	}
 
 	return output;

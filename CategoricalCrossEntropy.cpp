@@ -2,12 +2,33 @@
 #include "CategoricalCrossEntropy.h"
 
 using namespace ML;
-double CategoricalCrossEntropy::Calculate(Vector& yp, Vector& yt, bool isLogit)
+double CategoricalCrossEntropy::Calculate(Vector yp, Vector yt, bool isLogit)
 {
-    return 0.0;
+	auto& my = yp;
+
+	if (isLogit)
+	{
+		my = Sigmoid(yp);
+	}
+
+	double ret = 0;
+	int n = yp.size();
+	for (int i = 0; i < n; ++i)
+	{
+		ret += -yt[i] * log(my[i]);
+	}
+
+	return ret;
 }
 
-void CategoricalCrossEntropy::Gradient(Matrix& x, Vector& yp, Vector& yt, Vector& gdw, double& gdb)
+Vector CategoricalCrossEntropy::Gradient(Vector yp, Vector yt)
 {
+	int n = yp.size();
+	Vector gd(n,0);
+	for (int i = 0; i < n; ++i)
+	{
+		gd[i] = -yt[i] / yp[i];
+	}
 
+	return gd;
 }

@@ -41,7 +41,7 @@ Vector Regression::Train(int iter, double alpha)
 		double gdb;
 		Gradient(m_mx, m_y, m_w, m_b,gdw,gdb);
 
-		SubTo(m_w, Mul(gdw, alpha));
+		m_w-=Mul(gdw, alpha);
 		m_b -= gdb* alpha;
 	}
 
@@ -91,6 +91,25 @@ Matrix ML::Regression::ZNormalize(const Matrix& x)
 
 void Regression::Gradient(Matrix& x, Vector& y, Vector& w, double b, Vector& gdw, double& gdb)
 {
+	gdw.clear();
+	gdb = 0;
+
 	Vector yPred = Func(x, w, b);
-	m_loss->Gradient(x, yPred, y, gdw,gdb);
+	int m = x.size();
+	int n = x[0].size();
+
+	gdw.resize(n, 0);
+
+
+	for (int j = 0; j < m; ++j)
+	{
+		double value = m_loss->Gradient({ yPred[j] }, { y[j] })[0];
+		for (int i = 0; i < n; ++i)
+		{
+			gdw[i] += value * x[j][i];
+		}
+		gdb += value;
+	}
+	DivTo(gdw, m);
+	gdb /= m;
 }

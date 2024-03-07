@@ -6,8 +6,8 @@ namespace ML {
         public Loss
     {
     public:
-        double Calculate(Vector& yp, Vector& yt, bool isLogit = false) override;
-        void Gradient(Matrix& x, Vector& yp, Vector& yt, Vector& gdw, double& gdb) override;
+        double Calculate(Vector yp, Vector yt, bool isLogit = false) override;
+        Vector Gradient(Vector yp, Vector yt) override;
     };
 }
 
