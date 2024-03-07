@@ -13,6 +13,52 @@
 #include <numeric>
 #include <assert.h>
 
+#include "MathHelp.h"
 
+namespace ML
+{
+	inline Vector operator +(const Vector& a, const Vector& b)
+	{
+		assert(a.size() == b.size());
+
+		Vector output;
+		for (int i = 0; i < a.size(); ++i)
+		{
+			output.push_back(a[i] + b[i]);
+		}
+		return output;
+	}
+	inline Vector operator-(const Vector& a, const Vector& b)
+	{
+		assert(a.size() == b.size());
+
+		Vector output;
+		for (int i = 0; i < a.size(); ++i)
+		{
+			output.push_back(a[i] - b[i]);
+		}
+		return output;
+	}
+	inline Vector operator/(const Vector& a, const Vector& b)
+	{
+		assert(a.size() == b.size());
+
+		Vector output;
+		for (int i = 0; i < a.size(); ++i)
+		{
+			output.push_back(a[i] / b[i]);
+		}
+		return output;
+	}
+	inline void operator-=(Vector& a, const Vector& b)
+	{
+		assert(a.size() == b.size());
+
+		for (int i = 0; i < a.size(); ++i)
+		{
+			a[i] -= + b[i];
+		}
+	}
+}
 
 #endif //PCH_H

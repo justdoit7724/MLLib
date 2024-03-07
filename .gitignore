@@ -18,7 +18,7 @@
 *.cso
 *.dll
 *.lib
-
+x64/
 
 *.exp
 *.exe

@@ -70,6 +70,9 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>C:\Users\justd\source\repos\Test\x64\Debug\</OutDir>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -118,6 +121,9 @@
       </SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy /q /y "$(ProjectDir)*.h" "C:\Users\justd\source\repos\Test\Test\MLLib\"  </Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -153,11 +159,10 @@
     <ClInclude Include="LogisticRegression.h" />
     <ClInclude Include="Loss.h" />
     <ClInclude Include="NeuralNetwork.h" />
-    <ClInclude Include="Neuron.h" />
     <ClInclude Include="Normalizer.h" />
     <ClInclude Include="ReluAct.h" />
     <ClInclude Include="SoftmaxAct.h" />
-    <ClInclude Include="_Math.h" />
+    <ClInclude Include="MathHelp.h" />
     <ClInclude Include="MeanSqauredError.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Regression.h" />
@@ -176,11 +181,10 @@
     <ClCompile Include="LogisticRegression.cpp" />
     <ClCompile Include="Loss.cpp" />
     <ClCompile Include="NeuralNetwork.cpp" />
-    <ClCompile Include="Neuron.cpp" />
     <ClCompile Include="Normalizer.cpp" />
     <ClCompile Include="ReluAct.cpp" />
     <ClCompile Include="SoftmaxAct.cpp" />
-    <ClCompile Include="_Math.cpp" />
+    <ClCompile Include="MathHelp.cpp" />
     <ClCompile Include="MeanSqauredError.cpp" />
     <ClCompile Include="MLLib.cpp" />
     <ClCompile Include="pch.cpp">

@@ -42,7 +42,7 @@
     <ClInclude Include="Timer.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="_Math.h">
+    <ClInclude Include="MathHelp.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="NeuralNetwork.h">
@@ -62,9 +62,6 @@
     </ClInclude>
     <ClInclude Include="ReluAct.h">
       <Filter>Activation</Filter>
-    </ClInclude>
-    <ClInclude Include="Neuron.h">
-      <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Layer.h">
       <Filter>헤더 파일</Filter>
@@ -110,7 +107,7 @@
     <ClCompile Include="Timer.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="_Math.cpp">
+    <ClCompile Include="MathHelp.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="NeuralNetwork.cpp">
@@ -130,9 +127,6 @@
     </ClCompile>
     <ClCompile Include="LogisticAct.cpp">
       <Filter>Activation</Filter>
-    </ClCompile>
-    <ClCompile Include="Neuron.cpp">
-      <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Layer.cpp">
       <Filter>소스 파일</Filter>

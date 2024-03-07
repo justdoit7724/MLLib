@@ -12,23 +12,28 @@ Vector SoftmaxAct::Calc(Vector z)
 	return output;
 }
 
-Matrix SoftmaxAct::Diff(Vector z, Matrix dz)
+Matrix SoftmaxAct::Diff(Vector z)
 {
-	int na = dz.size();
-	int nz = dz[0].size();
+	int n = z.size();
 
-	Matrix output(na, Vector(nz));
+	Matrix output(n, Vector(n,0));
 
 	Vector expZ = Exp(z);
 	double sum = std::accumulate(expZ.begin(), expZ.end(), 0);
 
-	for (int y = 0; y < na; ++y)
+	for (int y = 0; y < n; ++y)
 	{
-		double mulSum = Dot(expZ, dz[y]);
-
-		for (int x = 0; x < nz; ++x)
+		for (int x = 0; x < n; ++x)
 		{
-			output[y][x] = expZ[x] * dz[y][x] * sum - mulSum * expZ[x];
+			if (x == y)
+			{
+				output[y][x] += (expZ[y] * sum - pow(expZ[y], 2));
+			}
+			else
+			{
+				output[y][x] +=  - expZ[x] * expZ[y];
+			}
+
 		}
 	}
 

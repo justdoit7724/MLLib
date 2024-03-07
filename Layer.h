@@ -1,22 +1,25 @@
 #pragma once
-#include "_Math.h"
+#include "MathHelp.h"
 #include "FactoryAct.h"
 
 namespace ML
 {
 	class Activation;
-	class Neuron;
 
 	class Layer
 	{
 	public:
 		Layer(int nInput, int nN, ActKind act);
 
-		Vector Calc(Vector a);
+		Vector Calc(Vector a, Vector& z);
+		Activation* Act();
 		
+		const int m_nInput;
+		const int m_nN;
+		Matrix m_W;
+		Vector m_B;
 	private:
 
-		std::vector<Neuron*> m_neurons;
 		Activation* m_act;
 	};
 }

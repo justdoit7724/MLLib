@@ -1,5 +1,5 @@
 #pragma once
-#include "_Math.h"
+#include "MathHelp.h"
 #include "Loss.h"
 
 namespace ML {

@@ -1,31 +1,25 @@
 #include "pch.h"
 #include "Layer.h"
-#include "Neuron.h"
 
 using namespace ML;
 
 Layer::Layer(int nInput, int nN, ActKind act)
+	:m_nInput(nInput),m_nN(nN)
 {
-
-
-
-
-	for (int i = 0; i < nN; ++i)
-	{
-		m_neurons.push_back(new Neuron(nInput));
-	}
+	m_W.resize(nN, Vector(nInput, 0));
+	m_B.resize(nN, 0);
 
 	FactoryAct::Create(act, &m_act);
 }
 
-Vector Layer::Calc(Vector a)
+Vector Layer::Calc(Vector a, Vector& z)
 {
-	Vector z;
-
-	for (Neuron* n : m_neurons)
-	{
-		z.push_back(n->Calc(a));
-	}
+	z = Transpose(Dot(m_W, ToMatrix(a)))[0] + m_B;
 
 	return m_act->Calc(z);
+}
+
+Activation* ML::Layer::Act()
+{
+	return m_act;
 }

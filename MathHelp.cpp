@@ -1,27 +1,28 @@
 #include "pch.h"
-#include "_Math.h"
+#include "MathHelp.h"
 
 using namespace ML;
 
-void ML::AddTo(Vector& a, const Vector& b)
+Vector ML::BinaryMul(const Vector& a, const Vector& b)
 {
 	assert(a.size() == b.size());
 
+	Vector output;
 	for (int i = 0; i < a.size(); ++i)
 	{
-		a[i] += b[i];
+		output.push_back(a[i] * b[i]);
 	}
+	return output;
 }
 
-void ML::SubTo(Vector& a, const Vector& b)
+void ML::MulTo(Vector& a, const Vector& b)
 {
 	assert(a.size() == b.size());
 
 	for (int i = 0; i < a.size(); ++i)
 	{
-		a[i] -= b[i];
+		a[i] *= b[i];
 	}
-
 }
 
 double ML::Dot(const Vector& a, const Vector& b)
@@ -166,6 +167,23 @@ ML::Matrix ML::Sub(const Matrix& A, const Matrix& B)
 	return output;
 }
 
+Matrix ML::Mul(const Matrix& A, const Matrix& B)
+{
+	assert(A.size() == B.size() && A[0].size() == B[0].size());
+
+	Matrix output(A.size(), Vector(A[0].size()));
+
+	for (int y = 0; y < A.size(); y++)
+	{
+		for (int x = 0; x < A[0].size(); ++x)
+		{
+			output[y][x] = A[y][x] * B[y][x];
+		}
+	}
+
+	return output;
+}
+
 void ML::AddTo(Matrix& A, double v)
 {
 
@@ -211,9 +229,43 @@ void ML::DivTo(Matrix& A, double v)
 	}
 }
 
-
-void ML::Transpose(Matrix& A)
+Matrix ML::ToMatrix(Vector v)
 {
+	Matrix out;
+	out.push_back(v);
+	
+	return Transpose(out);
+}
+
+Matrix ML::Identity(int n)
+{
+	Matrix out(n, Vector(n, 0));
+	
+	for (int i = 0; i < n; ++i)
+	{
+		out[i][i] = 1;
+	}
+
+	return out;
+}
+
+
+Matrix ML::Transpose(const Matrix& A)
+{
+	int m = A.size();
+	int n = A[0].size();
+
+	Matrix output = Zeros(n, m);
+
+	for (int y = 0; y < m; ++y)
+	{
+		for (int x = 0; x < n; ++x)
+		{
+			output[x][y] = A[y][x];
+		}
+	}
+	
+	return output;
 }
 
 double ML::Sigmoid(double v)
@@ -238,6 +290,46 @@ Vector ML::Exp(Vector v)
 	Vector output(v.size());
 	for (int i = 0; i < v.size(); ++i)
 		output[i] = exp(v[i]);
+
+	return output;
+}
+
+Matrix ML::Zeros(int m, int n, double v)
+{
+	return Matrix(m, Vector(n,v));
+}
+
+Matrix ML::Zeros(const Matrix& m, double v)
+{
+	return Zeros(m.size(), m[0].size(), v);
+}
+
+std::string ToStringSingle(float f, int fracCount = 2)
+{
+
+	std::string ret = std::to_string(f);
+	auto dot = ret.find('.');
+	if (fracCount == 0)
+	{
+		return ret.substr(0, dot);
+	}
+	if (dot != std::string::npos)
+		return ret.substr(0, dot + 1 + fracCount);
+
+	return ret;
+}
+std::string ML::ToString(const Matrix& m)
+{
+	std::string output;
+
+	for (int i = 0; i < m.size(); ++i)
+	{
+		for (int j = 0; j < m[i].size(); ++j)
+		{
+			output += ToStringSingle(m[i][j]) + " ";
+		}
+		output.push_back('\n');
+	}
 
 	return output;
 }

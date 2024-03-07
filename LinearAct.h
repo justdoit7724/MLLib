@@ -10,7 +10,7 @@ namespace ML
 
         Vector Calc(Vector z) override;
 
-        Matrix Diff(Vector z, Matrix dz) override;
+        Matrix Diff(Vector z) override;
 
 
     };
