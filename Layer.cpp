@@ -6,7 +6,7 @@ using namespace ML;
 Layer::Layer(int nInput, int nN, ActKind act)
 	:m_nInput(nInput),m_nN(nN)
 {
-	m_W.resize(nN, Vector(nInput, 0));
+	m_W.resize(nN, Vector(nInput, 1));
 	m_B.resize(nN, 0);
 
 	FactoryAct::Create(act, &m_act);

@@ -106,7 +106,8 @@ Vector NeuralNetwork::Train(int iteration, double alpha)
 					{
 						for (int x = 0; x < layer->m_nN; ++x)
 						{
-							layer->m_W[x][y] -= dCZ[x][0] * m_mx[i][y] * alpha;
+							auto gd = dCZ[x][0] * m_mx[i][y];
+							layer->m_W[x][y] -= gd * alpha;
 						}
 					}
 				}
@@ -116,7 +117,8 @@ Vector NeuralNetwork::Train(int iteration, double alpha)
 					{
 						for (int x = 0; x < layer->m_nN; ++x)
 						{
-							layer->m_W[x][y] -= dCZ[x][0] * A[j - 1][y] * alpha;
+							auto gd = dCZ[x][0] * A[j - 1][y];
+							layer->m_W[x][y] -= gd * alpha;
 						}
 
 
