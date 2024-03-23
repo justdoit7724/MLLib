@@ -68,14 +68,15 @@ Vector NeuralNetwork::Train(int iteration, double alpha)
 		{
 			Matrix A;
 			Matrix Z;
-			Vector tmp;
-			A.push_back(m_layers[0]->Calc(m_mx[i], tmp));
-			Z.push_back(tmp);
+			Vector z; 
+			A.push_back(m_mx[i]);
+			A.push_back(m_layers[0]->Calc(m_mx[i], z));
+			Z.push_back(z);
 
 			for (int j = 1; j < m_layers.size(); ++j)
 			{
-				A.push_back(m_layers[j]->Calc(A[j - 1], tmp));
-				Z.push_back(tmp);
+				A.push_back(m_layers[j]->Calc(A[j], z));
+				Z.push_back(z);
 			}
 
 			//backpropagation
@@ -100,28 +101,12 @@ Vector NeuralNetwork::Train(int iteration, double alpha)
 				Matrix dCZ = Dot(dLZ, m_prevDiff);
 
 				//get gd
-				if (j == 0)
+				for (int y = 0; y < layer->m_nInput; ++y)
 				{
-					for (int y = 0; y < layer->m_nInput; ++y)
+					for (int x = 0; x < layer->m_nN; ++x)
 					{
-						for (int x = 0; x < layer->m_nN; ++x)
-						{
-							auto gd = dCZ[x][0] * m_mx[i][y];
-							layer->m_W[x][y] -= gd * alpha;
-						}
-					}
-				}
-				else
-				{
-					for (int y = 0; y < layer->m_nInput; ++y)
-					{
-						for (int x = 0; x < layer->m_nN; ++x)
-						{
-							auto gd = dCZ[x][0] * A[j - 1][y];
-							layer->m_W[x][y] -= gd * alpha;
-						}
-
-
+						auto gd = dCZ[x][0] * A[j][y];
+						layer->m_W[x][y] -= gd * alpha;
 					}
 				}
 				for (int y = 0; y < layer->m_nN; ++y)

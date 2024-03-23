@@ -6,7 +6,7 @@ using namespace ML;
 Vector SoftmaxAct::Calc(Vector z)
 {
 	Vector output = Exp(z);
-	double sum = std::accumulate(z.begin(), z.end(),0);
+	double sum = std::accumulate(output.begin(), output.end(),0.0);
 	DivTo(output, sum);
 
 	return output;
@@ -19,7 +19,7 @@ Matrix SoftmaxAct::Diff(Vector z)
 	Matrix output(n, Vector(n,0));
 
 	Vector expZ = Exp(z);
-	double sum = std::accumulate(expZ.begin(), expZ.end(), 0);
+	double sum = std::accumulate(expZ.begin(), expZ.end(), 0.0);
 
 	for (int y = 0; y < n; ++y)
 	{
