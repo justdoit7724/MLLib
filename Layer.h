@@ -18,6 +18,7 @@ namespace ML
 		const int m_nN;
 		Matrix m_W;
 		Vector m_B;
+
 	private:
 
 		Activation* m_act;

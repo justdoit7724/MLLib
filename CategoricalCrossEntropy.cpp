@@ -2,6 +2,10 @@
 #include "CategoricalCrossEntropy.h"
 
 using namespace ML;
+ML::CategoricalCrossEntropy::CategoricalCrossEntropy()
+	:Loss(LossKind::CategoryCrossEntropy)
+{
+}
 double CategoricalCrossEntropy::Calculate(Vector yp, Vector yt, bool isLogit)
 {
 	auto& my = yp;

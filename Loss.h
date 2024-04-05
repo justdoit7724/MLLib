@@ -1,10 +1,17 @@
 #pragma once
 #include "MathHelp.h"
+#include "FactoryLoss.h"
 
 namespace ML {
 	class Loss
 	{
+
 	public:
+
+		Loss() = delete;
+		Loss(LossKind kind);
+
+		const LossKind m_kind;
 
 		/***
 		Single data calculation

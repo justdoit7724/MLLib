@@ -7,6 +7,7 @@ namespace ML
         public Activation
     {
     public:
+        LinearAct();
 
         Vector Calc(Vector z) override;
 

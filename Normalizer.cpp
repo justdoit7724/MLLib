@@ -26,6 +26,7 @@ void Normalizer::ZNormalize(const Matrix& x, Matrix* outX, Vector* outMu, Vector
 		(*outSig)[i] = sqrt((*outSig)[i]);
 	}
 	
+	outX->clear();
 	outX->resize(m, Vector(n, 0));
 
 	for (int i = 0; i < m; ++i)

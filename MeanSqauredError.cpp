@@ -2,6 +2,10 @@
 #include "MeanSqauredError.h"
 
 using namespace ML;
+ML::MeanSqauredError::MeanSqauredError()
+    :Loss(LossKind::MeanSqure)
+{
+}
 double MeanSqauredError::Calculate(Vector yp, Vector yt, bool isLogit)
 {
     int n = yp.size();

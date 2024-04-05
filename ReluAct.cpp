@@ -3,13 +3,18 @@
 
 using namespace ML;
 
+ML::ReluAct::ReluAct()
+	:Activation(ActKind::Relu)
+{
+}
+
 Vector ReluAct::Calc(Vector z)
 {
 	Vector output(z.size());
 
 	for (int i = 0; i < output.size(); ++i)
 	{
-		output[i] = z[i] < 0?0: z[i];
+		output[i] = z[i] > 0?z[i] : 0;
 
 	}
 
@@ -24,7 +29,7 @@ Matrix ReluAct::Diff(Vector z)
 
 	for (int i = 0; i < n; ++i)
 	{
-		output[i][i] = z[i] < 0 ? 0 : 1;
+		output[i][i] = z[i] > 0 ? 1 : 0;
 	}
 
 	return output;

@@ -304,10 +304,13 @@ Matrix ML::Zeros(const Matrix& m, double v)
 	return Zeros(m.size(), m[0].size(), v);
 }
 
+
 std::string ToStringSingle(float f, int fracCount = 2)
 {
 
 	std::string ret = std::to_string(f);
+	if (f >= 0)
+		ret.insert(ret.begin(), ' ');
 	auto dot = ret.find('.');
 	if (fracCount == 0)
 	{
@@ -318,17 +321,22 @@ std::string ToStringSingle(float f, int fracCount = 2)
 
 	return ret;
 }
-std::string ML::ToString(const Matrix& m)
+std::string ML::ToString(const Vector& v, int fracCount)
+{
+	std::string output;
+	for (int j = 0; j < v.size(); ++j)
+	{
+		output += ToStringSingle(v[j], fracCount) + " ";
+	}
+	return output;
+}
+std::string ML::ToString(const Matrix& m, int fracCount)
 {
 	std::string output;
 
 	for (int i = 0; i < m.size(); ++i)
 	{
-		for (int j = 0; j < m[i].size(); ++j)
-		{
-			output += ToStringSingle(m[i][j]) + " ";
-		}
-		output.push_back('\n');
+		output += ToString(m[i], fracCount) + "\n";
 	}
 
 	return output;

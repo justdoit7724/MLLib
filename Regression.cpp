@@ -6,15 +6,34 @@
 using namespace ML;
 
 
+
+Regression::Regression(const Regression& reg)
+{
+	m_w = reg.m_w;
+	m_b = reg.m_b;
+	m_isNormalized = reg.m_isNormalized;
+	m_mu = reg.m_mu;
+	m_sig = reg.m_sig;
+
+	m_nVar = reg.m_nVar;
+
+	FactoryLoss::Create(reg.m_loss->m_kind, &m_loss);
+}
+
 Regression::~Regression()
 {
 	delete m_loss;
 }
 
-bool Regression::Compile(Matrix&  x, Vector& y, bool isNormalize)
+bool Regression::Compile(Matrix&  x, Vector& y,int epoch, bool isNormalize)
 {
 	m_nVar = x[0].size();
-	m_w.resize(m_nVar, 0);
+	m_w.resize(m_nVar);
+	for (int i = 0; i < m_nVar; ++i)
+	{
+		m_w[i] = 2 * (rand() / (double)RAND_MAX - 0.5);
+	}
+	m_b = 2*(rand()/ (double)RAND_MAX-0.5);
 	m_mx.resize(x.size(), Vector(m_nVar, 0));
 
 	m_isNormalized = isNormalize;
@@ -27,23 +46,45 @@ bool Regression::Compile(Matrix&  x, Vector& y, bool isNormalize)
 
 	m_y = y;
 
+	int m = x.size();
+	m_mx.reserve(m * epoch);
+	m_y.reserve(m * epoch);
+	for (int i = 0; i < (epoch - 1); ++i)
+	{
+		for (int j = 0; j < m; ++j)
+		{
+			m_mx.push_back(m_mx[j]);
+			m_y.push_back(m_y[j]);
+		}
+	}
+
 	return false;
 }
 
-Vector Regression::Train(int iter, double alpha)
+Vector Regression::Train(double alpha)
 {
 	Vector hCost;
-	for (int i = 0; i < iter; ++i)
-	{
-		double cost = Cost(m_mx, m_y, m_w, m_b);
-		hCost.push_back(cost);
-		Vector gdw;
-		double gdb;
-		Gradient(m_mx, m_y, m_w, m_b,gdw,gdb);
 
-		m_w-=Mul(gdw, alpha);
-		m_b -= gdb* alpha;
-	}
+
+	//shuffle
+	/*for (int i = 0; i < m_mx.size() / 2; ++i)
+	{
+		int i1 = rand() % m_mx.size();
+		int i2 = rand() % m_mx.size();
+
+		std::swap(m_mx[i1], m_mx[i2]);
+		std::swap(m_y[i1], m_y[i2]);
+	}*/
+
+
+	double cost = Cost(m_mx, m_y, m_w, m_b);
+	hCost.push_back(cost);
+	Vector gdw;
+	double gdb;
+	Gradient(m_mx, m_y, m_w, m_b,gdw,gdb);
+
+	m_w-=Mul(gdw, alpha);
+	m_b -= gdb* alpha;
 
 	return hCost;
 }

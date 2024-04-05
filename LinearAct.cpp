@@ -3,6 +3,11 @@
 
 using namespace ML;
 
+ML::LinearAct::LinearAct()
+    :Activation(ActKind::Linear)
+{
+}
+
 Vector LinearAct::Calc(Vector z)
 {
     return z;
