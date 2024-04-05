@@ -3,6 +3,11 @@
 
 using namespace ML;
 
+ML::SoftmaxAct::SoftmaxAct()
+	:Activation(ActKind::Softmax)
+{
+}
+
 Vector SoftmaxAct::Calc(Vector z)
 {
 	Vector output = Exp(z);

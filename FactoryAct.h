@@ -1,8 +1,8 @@
 #pragma once
-#include "Activation.h"
 
 namespace ML
 {
+	class Activation;
 	enum class ActKind {
 		Linear,
 		Logistic,

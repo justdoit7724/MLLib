@@ -3,6 +3,11 @@
 
 using namespace ML;
 
+ML::LogisticAct::LogisticAct()
+	:Activation(ActKind::Logistic)
+{
+}
+
 Vector LogisticAct::Calc(Vector z)
 {
 	return Sigmoid(z);

@@ -15,6 +15,8 @@
 
 #include "MathHelp.h"
 
+#define DX_EPSILON 1.0e-12
+
 namespace ML
 {
 	inline Vector operator +(const Vector& a, const Vector& b)

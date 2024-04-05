@@ -7,9 +7,11 @@ namespace ML {
 	class Regression
 	{
 	public:
+		Regression() {}
+		Regression(const Regression& reg);
 		virtual ~Regression();
-		virtual bool Compile(Matrix&  x, Vector& y, bool isNormalize=false);
-		virtual Vector Train(int iter, double alpha);
+		virtual bool Compile(Matrix&  x, Vector& y, int epoch, bool isNormalize=false);
+		virtual Vector Train(double alpha);
 		virtual Vector Predict(Matrix&  x);
 		void SetWeights(Vector& w, double b);
 		void GetWeights(Vector& w, double& b);
