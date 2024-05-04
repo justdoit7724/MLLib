@@ -8,12 +8,12 @@ ML::LinearAct::LinearAct()
 {
 }
 
-Vector LinearAct::Calc(Vector z)
+Vector LinearAct::Calc(Vector z)const
 {
     return z;
 }
 
-Matrix LinearAct::Diff(Vector z)
+Matrix LinearAct::Diff(Vector z)const
 {
     int n = z.size();
     return Identity(n);

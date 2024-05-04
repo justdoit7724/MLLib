@@ -17,13 +17,9 @@ Regression::Regression(const Regression& reg)
 
 	m_nVar = reg.m_nVar;
 
-	FactoryLoss::Create(reg.m_loss->m_kind, &m_loss);
+	m_loss = FactoryLoss::Create(reg.m_loss->m_kind);
 }
 
-Regression::~Regression()
-{
-	delete m_loss;
-}
 
 bool Regression::Compile(Matrix&  x, Vector& y,int epoch, bool isNormalize)
 {

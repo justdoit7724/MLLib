@@ -1,4 +1,5 @@
 #pragma once
+#include<memory>
 
 namespace ML
 {
@@ -13,7 +14,7 @@ namespace ML
 	class FactoryAct
 	{
 	public:
-		static void Create(ActKind kind, Activation** out);
+		static std::unique_ptr<Activation> Create(ActKind kind);
 	};
 
 }

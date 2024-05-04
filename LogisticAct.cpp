@@ -8,12 +8,12 @@ ML::LogisticAct::LogisticAct()
 {
 }
 
-Vector LogisticAct::Calc(Vector z)
+Vector LogisticAct::Calc(Vector z)const
 {
 	return Sigmoid(z);
 }
 
-Matrix LogisticAct::Diff(Vector z)
+Matrix LogisticAct::Diff(Vector z)const
 {
 	int n = z.size();
 	Matrix output(n, Vector(n, 0));

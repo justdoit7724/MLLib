@@ -5,18 +5,18 @@
 #include "MeanSqauredError.h"
 using namespace ML;
 
-void FactoryLoss::Create(LossKind kind, Loss** out)
+std::unique_ptr<Loss> FactoryLoss::Create(LossKind kind)
 {
 	switch (kind)
 	{
 	case ML::LossKind::BinaryCrossEntropy:
-		*out = new BinaryCrossEntropy();
+		return std::make_unique<BinaryCrossEntropy>();
 		break;
 	case ML::LossKind::CategoryCrossEntropy:
-		*out = new CategoricalCrossEntropy();
+		return std::make_unique<CategoricalCrossEntropy>();
 		break;
 	case ML::LossKind::MeanSqure:
-		*out = new MeanSqauredError();
+		return std::make_unique<MeanSqauredError>();
 		break;
 	default:
 		break;

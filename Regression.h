@@ -1,4 +1,5 @@
 #pragma once
+#include <memory>
 #include "MathHelp.h"
 #include "Loss.h"
 
@@ -9,7 +10,6 @@ namespace ML {
 	public:
 		Regression() {}
 		Regression(const Regression& reg);
-		virtual ~Regression();
 		virtual bool Compile(Matrix&  x, Vector& y, int epoch, bool isNormalize=false);
 		virtual Vector Train(double alpha);
 		virtual Vector Predict(Matrix&  x);
@@ -22,7 +22,7 @@ namespace ML {
 		void Gradient(Matrix&  x, Vector& y, Vector& w, double b, Vector& gdw, double& gdb);
 
 	protected:
-		Loss* m_loss;
+		std::unique_ptr<Loss> m_loss;
 	private:
 		Matrix m_mx;
 		Vector m_y;

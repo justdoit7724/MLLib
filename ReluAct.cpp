@@ -8,7 +8,7 @@ ML::ReluAct::ReluAct()
 {
 }
 
-Vector ReluAct::Calc(Vector z)
+Vector ReluAct::Calc(Vector z)const
 {
 	Vector output(z.size());
 
@@ -21,7 +21,7 @@ Vector ReluAct::Calc(Vector z)
 	return output;
 }
 
-Matrix ReluAct::Diff(Vector z)
+Matrix ReluAct::Diff(Vector z)const
 {
 	int n = z.size();
 

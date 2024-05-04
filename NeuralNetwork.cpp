@@ -2,14 +2,12 @@
 #include "pch.h"
 #include "NeuralNetwork.h"
 #include "Normalizer.h"
-#include "Layer.h"
-#include "Loss.h"
 #include "Activation.h"
 
 using namespace ML;
 
 ML::NeuralNetwork::NeuralNetwork()
-	:m_normalized(false), m_loss(nullptr), m_epoch(0)
+	:m_normalized(false), m_epoch(0)
 {
 }
 
@@ -17,16 +15,18 @@ ML::NeuralNetwork::NeuralNetwork(const NeuralNetwork& network)
 {
 	Release();
 
-	for (int i = 0; i < network.m_layers.size(); ++i)
-	{
-		m_layers.push_back(new Layer(network.m_layers[i]->m_nInput, network.m_layers[i]->m_nN, network.m_layers[i]->Act()->m_kind));
+	m_layers = std::make_unique<Layer[]>(network.m_nLayer);
 
-		m_layers.back()->m_W =network.m_layers[i]->m_W;
-		m_layers.back()->m_B = network.m_layers[i]->m_B;
+	for (int i = 0; i < network.m_nLayer; ++i)
+	{
+		m_layers[i].Initialize(network.m_layers[i].GetInputSize(), network.m_layers[i].GetNeurnSize(), network.m_layers[i].GetAct()->Kind());
+
+		m_layers[i].m_W =network.m_layers[i].m_W;
+		m_layers[i].m_B = network.m_layers[i].m_B;
 		
 	}
 
-	FactoryLoss::Create(network.m_loss->m_kind, &m_loss);
+	m_loss=FactoryLoss::Create(network.m_loss->m_kind);
 }
 
 NeuralNetwork::~NeuralNetwork()
@@ -43,15 +43,19 @@ void NeuralNetwork::Compile(std::vector<std::pair<ActKind, int>> layers, LossKin
 	int na = x[0].size();
 	int m = x.size();
 
-	FactoryLoss::Create(loss, &m_loss);
+	m_loss = FactoryLoss::Create(loss);
 
-	m_layers.push_back(new Layer(na, layers.front().second,(ActKind)(layers.front().first)));
+	m_nLayer = layers.size();
+
+	m_layers = std::make_unique<Layer[]>(m_nLayer);
+
+	m_layers[0].Initialize(na, layers.front().second,(ActKind)(layers.front().first));
 	for (int i=1; i< layers.size();++i)
 	{
 		ActKind kind = layers[i].first;
 		int neuronNum = layers[i].second;
 
-		m_layers.push_back(new Layer(layers[i - 1].second, neuronNum, kind));
+		m_layers[i].Initialize(layers[i - 1].second, neuronNum, kind);
 	}
 
 	m_y = y;
@@ -99,12 +103,12 @@ Vector NeuralNetwork::Train(double alpha)
 		Matrix Z;
 		Vector z; 
 		A.push_back(m_mx[i]);
-		A.push_back(m_layers[0]->Calc(m_mx[i], z));
+		A.push_back(m_layers[0].Calc(m_mx[i], z));
 		Z.push_back(z);
 
-		for (int j = 1; j < m_layers.size(); ++j)
+		for (int j = 1; j < m_nLayer; ++j)
 		{
-			A.push_back(m_layers[j]->Calc(A[j], z));
+			A.push_back(m_layers[j].Calc(A[j], z));
 			Z.push_back(z);
 		}
 
@@ -114,15 +118,12 @@ Vector NeuralNetwork::Train(double alpha)
 		m_prevDiff = ToMatrix(m_loss->Gradient(A.back(), m_y[i]));
 
 		//layer diff
-		for (int j = m_layers.size() - 1; j >= 0; --j)
+		for (int j = m_nLayer - 1; j >= 0; --j)
 		{
-			Layer* layer = m_layers[j];
-
-			
-			Matrix dLZ = layer->Act()->Diff(Z[j]);
+			Matrix dLZ = m_layers[j].GetAct()->Diff(Z[j]);
 
 			//next diff mat before updating weights
-			Matrix dLA = Transpose(Dot(Transpose(dLZ), layer->m_W));
+			Matrix dLA = Transpose(Dot(Transpose(dLZ), m_layers[j].m_W));
 			Matrix nextDiff = Dot(dLA, m_prevDiff);
 
 
@@ -130,17 +131,17 @@ Vector NeuralNetwork::Train(double alpha)
 			Matrix dCZ = Dot(dLZ, m_prevDiff);
 
 			//get gd
-			for (int y = 0; y < layer->m_nInput; ++y)
+			for (int y = 0; y < m_layers[j].GetInputSize(); ++y)
 			{
-				for (int x = 0; x < layer->m_nN; ++x)
+				for (int x = 0; x < m_layers[j].GetNeurnSize(); ++x)
 				{
 					auto gd = dCZ[x][0] * A[j][y];
-					layer->m_W[x][y] -= gd * alpha;
+					m_layers[j].m_W[x][y] -= gd * alpha;
 				}
 			}
-			for (int y = 0; y < layer->m_nN; ++y)
+			for (int y = 0; y < m_layers[j].GetNeurnSize(); ++y)
 			{
-				layer->m_B[y] -= dCZ[y][0] * alpha;
+				m_layers[j].m_B[y] -= dCZ[y][0] * alpha;
 			}
 
 			m_prevDiff= nextDiff;
@@ -188,10 +189,10 @@ Matrix NeuralNetwork::Predict(Matrix x, int start , int size)
 	{
 		Vector v = x[i+start];
 
-		for (Layer* l : m_layers)
+		for(int i=0; i<m_nLayer;++i)
 		{
 			Vector z;
-			v = l->Calc(v, z);
+			v = m_layers[i].Calc(v, z);
 		}
 
 		output.push_back(v);
@@ -211,18 +212,10 @@ Matrix NeuralNetwork::Predict(Matrix x, int start , int size)
 void NeuralNetwork::Release()
 {
 	m_epoch = 0;
-	for (int i = 0; i < m_layers.size(); ++i)
-	{
-		delete m_layers[i];
-	}
-	m_layers.clear();
 
 	m_sig.clear();
 	m_mu.clear();
 	m_normalized = false;
-
-	if (m_loss)
-		delete m_loss;
 
 	m_mx.clear();
 	m_y.clear();
@@ -230,14 +223,14 @@ void NeuralNetwork::Release()
 
 void NeuralNetwork::SetWeights(int l, const Matrix& w, Vector b)
 {
-	m_layers[l]->m_W = w;
-	m_layers[l]->m_B = b;
+	m_layers[l].m_W = w;
+	m_layers[l].m_B = b;
 }
 
 void NeuralNetwork::GetWeights(int l, Matrix& w, Vector& b)
 {
-	b = m_layers[l]->m_B;
-	w = m_layers[l]->m_W;
+	b = m_layers[l].m_B;
+	w = m_layers[l].m_W;
 }
 
 std::vector<std::pair<ActKind, int>> NeuralNetwork::GetLayerInfo()
@@ -246,9 +239,9 @@ std::vector<std::pair<ActKind, int>> NeuralNetwork::GetLayerInfo()
 
 
 	
-	for (int i = 0; i < m_layers.size(); ++i)
+	for (int i = 0; i < m_nLayer; ++i)
 	{
-		layer.push_back({ m_layers[0]->Act()->m_kind,m_layers[i]->m_nN});
+		layer.push_back({ m_layers[0].GetAct()->Kind(),m_layers[i].GetNeurnSize()});
 	}
 
 	return layer;

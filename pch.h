@@ -12,6 +12,7 @@
 
 #include <numeric>
 #include <assert.h>
+#include <memory>
 
 #include "MathHelp.h"
 

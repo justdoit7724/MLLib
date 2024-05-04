@@ -5,7 +5,7 @@
 using namespace ML;
 LinearRegression::LinearRegression()
 {
-	FactoryLoss::Create(LossKind::MeanSqure, &m_loss);
+	m_loss = FactoryLoss::Create(LossKind::MeanSqure);
 }
 Vector LinearRegression::Func(Matrix&  x, Vector& w, double b)
 {

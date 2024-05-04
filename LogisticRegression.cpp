@@ -6,7 +6,7 @@
 using namespace ML;
 LogisticRegression::LogisticRegression()
 {
-	FactoryLoss::Create(LossKind::BinaryCrossEntropy, &m_loss);
+	m_loss=FactoryLoss::Create(LossKind::BinaryCrossEntropy);
 }
 Vector LogisticRegression::Func(Matrix& x, Vector& w, double b)
 {

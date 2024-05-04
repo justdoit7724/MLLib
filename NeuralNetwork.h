@@ -1,12 +1,13 @@
 #pragma once
+#include <memory>
 #include "MathHelp.h"
 #include "FactoryAct.h"
 #include "FactoryLoss.h"
+#include "Layer.h"
+#include "Loss.h"
 
 namespace ML
 {
-	class Layer;
-	class Loss;
 	class NeuralNetwork
 	{
 	public:
@@ -28,9 +29,10 @@ namespace ML
 
 	protected:
 
-		std::vector<Layer*> m_layers;
-		Loss* m_loss;
+		std::unique_ptr<Layer[]> m_layers;
+		std::unique_ptr<Loss> m_loss;
 
+		int m_nLayer;
 		bool m_normalized;
 		Matrix m_mx;
 		Matrix m_y;

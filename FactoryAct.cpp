@@ -7,23 +7,19 @@
 
 using namespace ML;
 
-void FactoryAct::Create(ActKind kind, Activation** out)
+std::unique_ptr<Activation> FactoryAct::Create(ActKind kind)
 {
 	switch (kind)
 	{
 	case ActKind::Linear:
-		*out = new LinearAct();
-		break;
+		return std::make_unique<LinearAct>();
 	case ActKind::Logistic:
-		*out = new LogisticAct();
-		break;
+		return std::make_unique<LogisticAct>();
 	case ActKind::Relu:
-		*out = new ReluAct();
-		break;
+		return std::make_unique<ReluAct>();
 	case ActKind::Softmax:
-		*out = new SoftmaxAct();
-		break;
+		return std::make_unique<SoftmaxAct>();
 	default:
-		break;
+		return nullptr;
 	}
 }

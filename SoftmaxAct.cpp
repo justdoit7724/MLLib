@@ -8,7 +8,7 @@ ML::SoftmaxAct::SoftmaxAct()
 {
 }
 
-Vector SoftmaxAct::Calc(Vector z)
+Vector SoftmaxAct::Calc(Vector z)const
 {
 	Vector output = Exp(z);
 	double sum = std::accumulate(output.begin(), output.end(),0.0);
@@ -17,7 +17,7 @@ Vector SoftmaxAct::Calc(Vector z)
 	return output;
 }
 
-Matrix SoftmaxAct::Diff(Vector z)
+Matrix SoftmaxAct::Diff(Vector z)const
 {
 	int n = z.size();
 

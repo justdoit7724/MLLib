@@ -8,8 +8,8 @@ namespace ML
     public:
         SoftmaxAct();
 
-        Vector Calc(Vector z) override;
-        Matrix Diff(Vector z) override;
+        Vector Calc(Vector z)const override;
+        Matrix Diff(Vector z)const override;
     };
 }
 

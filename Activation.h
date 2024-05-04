@@ -7,12 +7,17 @@ namespace ML
 	class Activation
 	{
 	public:
-		Activation() = delete;
+		Activation() {}
 		Activation(ActKind kind);
-		const ActKind m_kind;
+		~Activation() {}
 
-		virtual Vector Calc(Vector z) = 0;
-		virtual Matrix Diff(Vector z) = 0;
+		virtual Vector Calc(Vector z)const = 0;
+		virtual Matrix Diff(Vector z)const = 0;
+
+		ActKind Kind()const;
+
+	private:
+		ActKind m_kind;
 
 	};
 }

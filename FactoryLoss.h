@@ -1,4 +1,5 @@
 #pragma once
+#include <memory>
 
 namespace ML
 {
@@ -13,6 +14,6 @@ namespace ML
 	class FactoryLoss
 	{
 	public:
-		static void Create(LossKind kind, Loss** out);
+		static std::unique_ptr<Loss> Create(LossKind kind);
 	};
 }
